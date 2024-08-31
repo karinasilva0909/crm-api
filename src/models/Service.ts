@@ -2,36 +2,21 @@ import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 import { UserService } from './UserService';
 
 @Table({
-  tableName: 'users',
+  tableName: 'services',
   timestamps: true,
 })
-export class User extends Model {
+export class Service extends Model {
   @Column({
     type: DataType.STRING,
-    allowNull: true,
+    allowNull: false,
   })
   name!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
-    unique: true,
   })
-  email!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: true,
-    unique: true,
-  })
-  cpf!: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: true,
-    unique: true,
-  })
-  phone!: string;
+  description?: string;
 
   @HasMany(() => UserService)
   userServices!: UserService[];
