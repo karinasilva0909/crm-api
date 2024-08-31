@@ -10,28 +10,28 @@ export class User extends Model {
     type: DataType.STRING,
     allowNull: true,
   })
-  name!: string;
+  name?: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
     unique: true,
   })
-  email!: string;
+  email?: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
     unique: true,
   })
-  cpf!: string;
+  cpf?: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
     unique: true,
   })
-  phone!: string;
+  phone?: string;
 
   @HasMany(() => UserService)
   userServices!: UserService[];
