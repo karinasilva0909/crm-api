@@ -1,19 +1,21 @@
 import express from 'express';
-import bodyParser from 'body-parser';
+import sequelize from './config/database';
 
 const app = express();
-const PORT = 3001;
+const PORT = 3301;
 
-// Configurações de middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+const start = async () => {
+  try {
+    await sequelize.authenticate();
 
-// Rotas
-app.get('/', (req, res) => {
-    res.send('Backend do CRM está rodando!');
-});
+    await sequelize.sync();
 
-// Iniciar o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+};
+
+start();
