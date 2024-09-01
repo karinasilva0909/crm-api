@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 import { UserService } from './UserService';
+import { Step } from '../enums/Step';
 
 @Table({
   tableName: 'users',
@@ -32,6 +33,13 @@ export class User extends Model {
     unique: true,
   })
   phone?: string;
+
+  @Column({
+    type: DataType.ENUM(...Object.values(Step)),
+    allowNull: false,
+    defaultValue: Step.ASK_CONTINUE,
+  })
+  step!: Step;
 
   @HasMany(() => UserService)
   userServices!: UserService[];

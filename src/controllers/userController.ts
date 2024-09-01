@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import usersService from '../services/usersService';
-import { User } from '../models/User';
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -14,8 +13,13 @@ const createUser = async (req: Request, res: Response) => {
 const createUserService = async (req: Request, res: Response) => {
   try {
     const phone = req.body.phone;
-    console.log(phone);
-    const user = await usersService.createUser(phone);
+    const userData = {
+      phone: req.body.phone,
+      name: req.body.name || null,
+      email: req.body.email || null,
+      cpf: req.body.cpf || null,
+    };
+    const user = await usersService.createUser(userData);
     const userService = await usersService.linkUserService(parseInt(user.dataValues.id), parseInt(req.body.service));
     res.status(201).json(user);
   } catch (error) {
