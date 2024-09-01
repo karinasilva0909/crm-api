@@ -11,6 +11,20 @@ const createUser = async (userData: { name?: string; email?: string; phone?: str
   }
 };
 
+const updateUser = async (phone: string, updateData: any) => {
+  try {
+    const user = await User.findOne({ where: { phone } });
+    if (!user) {
+      return null;
+    }
+
+    await user.update(updateData);
+    return user;
+  } catch (error) {
+    throw new Error('Error updating user: ' + (error as Error).message);
+  }
+};
+
 const linkUserService = async (userId: number, serviceId: number) => {
   try {
     const user = await User.findByPk(userId);
@@ -49,4 +63,5 @@ export default {
   linkUserService,
   getUserServices,
   getUser,
+  updateUser,
 };

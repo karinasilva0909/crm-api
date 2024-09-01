@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
   port: 3306,
 });
 
-sequelize.sync({ force: false }) // Isso garante que as tabelas não sejam removidas e recriadas.
+sequelize.sync({ force: false })
   .then(() => {
     console.log('Database & tables synced successfully');
   })
